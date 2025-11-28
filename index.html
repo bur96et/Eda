@@ -3,199 +3,217 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Eda'ya Sürpriz ♥</title>
+<title>Neslihan Abla'ya Sürpriz ♥</title>
 <style>
-  html,body{height:100%;margin:0;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
-  body{background:linear-gradient(180deg,#111 0%, #210 100%); overflow:hidden; display:flex; align-items:center; justify-content:center;}
+  html,body{height:100%;margin:0;padding:0;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; overflow:hidden;}
+  
+  body{
+    background: linear-gradient(135deg, #ffeef8 0%, #ffd1dc 30%, #ff9ec1 70%, #ff6b9d 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+
   .message{
     position:relative;
     z-index:50;
     text-align:center;
     color:#fff;
     user-select:none;
-    padding:1rem 2rem;
-    border-radius:12px;
-    backdrop-filter: blur(4px);
+    padding:2rem 3rem;
+    border-radius:24px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
   }
+
   .message h1{
-    margin:0;
-    font-size: clamp(28px, 6vw, 56px);
-    letter-spacing:1px;
-    text-shadow: 0 6px 18px rgba(0,0,0,.6);
-    transform: translateY(20px);
+    margin:0 0 1rem 0;
+    font-size: clamp(32px, 8vw, 68px);
+    font-weight:900;
+    letter-spacing:2px;
+    text-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transform: translateY(30px);
     opacity:0;
-    transition: all 600ms cubic-bezier(.2,.9,.3,1);
+    transition: all 900ms cubic-bezier(0.22,1,0.36,1);
   }
+
   .message.show h1{
     transform: translateY(0);
     opacity:1;
   }
-  .subtitle{
-    margin-top:.6rem;
-    opacity:0;
-    transform: translateY(10px);
-    transition: all 600ms 120ms cubic-bezier(.2,.9,.3,1);
-  }
-  .message.show .subtitle{ opacity:0.9; transform:none; }
 
-  /* hearts container covers whole screen and sits under message visually? set high z for hearts if needed */
-  .hearts {
+  .subtitle{
+    font-size: clamp(18px, 4vw, 28px);
+    opacity:0;
+    transform: translateY(20px);
+    transition: all 900ms 300ms cubic-bezier(0.22,1,0.36,1);
+  }
+  .message.show .subtitle{ opacity:0.95; transform:none; }
+
+  .hearts, .balloons{
     position: fixed;
     left:0; top:0; width:100%; height:100%;
     pointer-events:none;
-    overflow:visible;
     z-index:40;
   }
 
-  .heart {
+  .heart, .balloon{
     position: absolute;
-    font-size: 22px;
     will-change: transform, opacity;
     animation: floatUp var(--dur) linear forwards;
-    filter: drop-shadow(0 6px 12px rgba(0,0,0,.35));
-    transform-origin: center;
-    opacity: 0;
+    user-select:none;
+  }
+
+  .heart{
+    font-size: clamp(24px, 5vw, 48px);
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,.3));
+  }
+
+  .balloon{
+    font-size: clamp(30px, 6vw, 60px);
+    animation-duration: calc(var(--dur) * 1.4);
   }
 
   @keyframes floatUp {
-    0%{ transform: translateY(0) scale(0.6) rotate(0deg); opacity:0; }
+    0%{ transform: translateY(100vh) scale(0.5) rotate(0deg); opacity:0; }
     10%{ opacity:1; }
-    100%{ transform: translateY(-110vh) scale(1.1) rotate(25deg); opacity:0; }
+    100%{ transform: translateY(-120vh) scale(1.2) rotate(30deg); opacity:0; }
   }
 
-  /* small bounce prompt on load before triggered */
   .tap-hint{
     position:fixed;
     bottom:30px;
     left:50%;
     transform:translateX(-50%);
-    color:rgba(255,255,255,0.9);
+    background:rgba(0,0,0,0.3);
+    color:white;
+    padding:12px 24px;
+    border-radius:50px;
+    font-size:16px;
+    backdrop-filter: blur(8px);
     z-index:60;
-    font-size:14px;
-    background:rgba(0,0,0,0.25);
-    padding:8px 12px;
-    border-radius:999px;
-    backdrop-filter: blur(4px);
   }
 
-  /* optional click area full screen so tapping triggers on mobile easily */
-  .click-area{ position:fixed; left:0; top:0; width:100%; height:100%; z-index:45; }
+  .click-area{ position:fixed; inset:0; z-index:45; cursor:pointer; }
 </style>
 </head>
 <body>
+
   <div class="hearts" id="hearts"></div>
+  <div class="balloons" id="balloons"></div>
 
   <div class="message" id="msg">
-    <h1 id="mainText">Eda I LOVE YOU</h1>
-    <div class="subtitle">♥ Sürpriz için beni tıkladın/okuttun ♥</div>
+    <h1>Neslihan Abla<br>Doğum Günün Kutlu Olsun!</h1>
+    <div class="subtitle">♥ Nice mutlu, sağlıklı, bol kahkahalı yıllara ♥</div>
   </div>
 
-  <div class="click-area" id="clickArea" aria-hidden="true"></div>
-  <div class="tap-hint" id="hint">Tıkla veya ekrana dokun — kalpler gelsin!</div>
+  <div class="click-area" id="clickArea"></div>
+  <div class="tap-hint" id="hint">Ekrana dokun veya tıkla → Sürpriz başlasın!</div>
+
+  <!-- Doğum günü için çok güzel ve duygusal bir enstrümantal parça -->
+ <audio id="bgMusic" loop preload="auto">
+  <source src="Nes.m4a" type="audio/mpeg">
+  <!-- ya da dosya adın neyse: neslihan-ses.mp3 gibi -->
+  Tarayıcın ses desteklemiyor.
+</audio>
 
 <script>
 (function(){
-  const heartsContainer = document.getElementById('hearts');
+  const hearts = document.getElementById('hearts');
+  const balloons = document.getElementById('balloons');
   const msg = document.getElementById('msg');
   const hint = document.getElementById('hint');
   const clickArea = document.getElementById('clickArea');
+  const audio = document.getElementById('bgMusic');
 
-  // Ayarlar
-  const HEARTS_PER_BURST = 18;      // tek tetiklemede oluşan kalp sayısı
-  const BURSTS = 3;                 // tek tetiklemede kaç dalga
-  const BURST_INTERVAL = 220;       // dalgalar arası ms
-  const COLORS = ['#ff4d6d','#ff7aa2','#ffa3c4','#ffd3e0','#ff6b9a'];
+  const HEART_COLORS = ['#ff6b9d','#ff8cb3','#ffa3c4','#ffb3d4','#ff9ec1','#ff77a9'];
+  const BALLOONS = ['🎈','🎉','🎊','🎀','✨','🌸','💖'];
 
-  // rastgele sayı
+  let triggered = false;
+
   function rnd(min,max){ return Math.random()*(max-min)+min; }
 
-  // kalp üret
-  function spawnHeart(xPercent){
+  function createHeart(xPercent){
     const el = document.createElement('div');
     el.className = 'heart';
-    const size = Math.floor(rnd(20,48)); // px font-size
-    el.style.fontSize = size + 'px';
-    el.style.left = (xPercent)+'%';
-    el.style.top = (rnd(30,80))+'%'; // başlangıç alt konum
-    el.style.opacity = 0;
-    el.style.setProperty('--dur', (rnd(2400,4200)) + 'ms');
-    // rastgele renk ve rotation
-    el.style.color = COLORS[Math.floor(rnd(0,COLORS.length))];
     el.textContent = '❤';
-    heartsContainer.appendChild(el);
-
-    // küçük giriş animasyonu (opacity göster)
-    requestAnimationFrame(()=> {
-      el.style.opacity = 1;
-    });
-
-    // temizle
-    setTimeout(()=> { 
-      el.remove();
-    }, 5000);
+    el.style.left = xPercent + '%';
+    el.style.color = HEART_COLORS[Math.floor(rnd(0,HEART_COLORS.length))];
+    el.style.setProperty('--dur', rnd(3000,5000)+'ms');
+    hearts.appendChild(el);
+    setTimeout(()=>el.remove(), 6000);
   }
 
-  // bütün patlamayı yap
+  function createBalloon(xPercent){
+    const el = document.createElement('div');
+    el.className = 'balloon';
+    el.textContent = BALLOONS[Math.floor(rnd(0,BALLOONS.length))];
+    el.style.left = xPercent + '%';
+    el.style.setProperty('--dur', rnd(5000,8000)+'ms');
+    balloons.appendChild(el);
+    setTimeout(()=>el.remove(), 9000);
+  }
+
   function burst(xPercent){
-    for(let i=0;i<HEARTS_PER_BURST;i++){
-      // dağılım: xPercent +/- 12%
-      const offset = rnd(-12,12);
-      spawnHeart(Math.min(95, Math.max(2, xPercent + offset)));
+    for(let i=0; i<22; i++){
+      const offset = rnd(-18,18);
+      createHeart(Math.max(5, Math.min(95, xPercent + offset)));
+    }
+    for(let i=0; i<10; i++){
+      const offset = rnd(-25,25);
+      createBalloon(Math.max(5, Math.min(95, xPercent + offset)));
     }
   }
 
-  // tetikle (sayfa açıldığında veya tıklayınca)
-  let triggered = false;
-  function triggerAll(xPercent = 50){
-    if(triggered) return; // bir kez tetiklensin istersen bunu değiştir
+  function startCelebration(x = 50){
+    if(triggered) return;
     triggered = true;
-    hint.style.display = 'none';
+
+    hint.style.opacity = '0';
+    setTimeout(()=> hint.style.display = 'none', 600);
+
     msg.classList.add('show');
 
-    // birden fazla burst
-    for(let b=0;b<BURSTS;b++){
-      setTimeout(()=> burst(xPercent), b*BURST_INTERVAL);
-    }
+    // İlk büyük patlama
+    burst(x);
+    setTimeout(()=>burst(x), 400);
+    setTimeout(()=>burst(x), 800);
 
-    // artan küçük patlamalar
-    let extra = 0;
-    const extraInterval = setInterval(()=>{
-      burst(rnd(30,70));
-      extra++;
-      if(extra>4) clearInterval(extraInterval);
-    }, 700);
+    // Sürekli küçük patlamalar
+    const interval = setInterval(()=>{
+      burst(rnd(20,80));
+    }, 1200);
+
+    // 15 saniye sonra yavaşlat
+    setTimeout(()=>{
+      clearInterval(interval);
+      setInterval(()=>burst(rnd(10,90)), 3000);
+    }, 15000);
+
+    // Müzik çalsın (kullanıcı etkileşimi olduğu için mobil de çalışır)
+    audio.volume = 0.6;
+    audio.play().catch(()=>{}); // bazı tarayıcılarda hata verir ama sorun değil
   }
 
-  // otomatik tetikle: sayfa açılışında 600ms sonra çalışsın (QR ile gelirken otomatik olsun)
-  window.addEventListener('load', ()=>{
-    setTimeout(()=> triggerAll(50), 600);
-    // ama mobilde tarayıcı engellerse kullanıcı etkileşimi bekle
-  });
+  // Otomatik başlasın (QR ile açıldığında hemen görsün)
+  window.onload = () => {
+    setTimeout(()=> startCelebration(50), 800);
+  };
 
-  // tıklama / dokunma yakalama (her kullanıcı etkileşimi tetiklesin)
-  clickArea.addEventListener('click', (e)=>{
-    const x = e.clientX || window.innerWidth/2;
+  // Tıklama/dokunma ile de tekrar tetiklensin (isterse daha çok kalp yapsın)
+  clickArea.onclick = clickArea.ontouchstart = (e) => {
+    e.preventDefault();
+    const rect = clickArea.getBoundingClientRect();
+    const x = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
     const xPercent = (x / window.innerWidth) * 100;
-    triggerAll(xPercent);
-  }, {passive:true});
-
-  // aynı şeyi dokunmada da çalıştır
-  clickArea.addEventListener('touchstart', (e)=>{
-    const touch = e.touches[0];
-    const xPercent = (touch.clientX / window.innerWidth) * 100;
-    triggerAll(xPercent);
-  }, {passive:true});
-
-  // eğer kullanıcı fareyle tıklarsa da güzel bir burst
-  document.addEventListener('click', (e)=>{
-    if(!triggered){
-      const xPercent = (e.clientX / window.innerWidth) * 100;
-      triggerAll(xPercent);
-    }
-  });
+    if(!triggered) startCelebration(xPercent);
+    else burst(xPercent); // zaten başladıysa ekstra patlama
+  };
 
 })();
 </script>
 </body>
 </html>
-
